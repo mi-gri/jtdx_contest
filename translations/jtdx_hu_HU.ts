@@ -6575,7 +6575,7 @@ Ez magának a dekódernek a hibája. Hárítsa el, ami az indulását akadályoz
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

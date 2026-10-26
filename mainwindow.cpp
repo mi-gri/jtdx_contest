@@ -96,6 +96,7 @@
 #include "savepurge.h"   // CE3TSK 2026-10-23: Save > Remove saved files after 30 days
 #include "atutune.h"   // CE3TSK 2026-10-23: a right click on Tune, the radio's own antenna tuner
 #include "swrguard.h"   // CE3TSK 2026-10-23: Halt Tx when SWR > 2.5
+#include "reservedlabel.h"   // CE3TSK 2026-10-26: the Pwr column keeps its size (3.-211)
 #include "call3file.h"   // CE3TSK 2026-10-23: CALL3.TXT's Lookup line and the old bundled list (3.-200)
 #include <QPainter>
 #include <QPainterPath>
@@ -2357,6 +2358,7 @@ void MainWindow::readSettings()
   }
   else ui->S_meter_button->setText(tr("S meter"));
   ui->S_meter_button->setEnabled(m_config.do_snr());
+  reservePowerColumn ();   // CE3TSK 2026-10-26 (3.-211)
   dec_data.params.nstophint=1;
   m_nlasttx=0;
   m_delay=0;
@@ -2933,6 +2935,7 @@ void MainWindow::on_actionSettings_triggered()               //Setup Dialog
       if(!m_config.do_snr()) ui->S_meter_button->setText(tr("S meter"));
       ui->S_meter_button->setEnabled(m_config.do_snr());
       if(!m_config.do_pwr()) {ui->PWRlabel->setText(tr("Pwr")); ui->SWRlabel->setText(""); ui->SWRlabel->setStyleSheet (""); m_swrTripped = false; m_swrShown = 0;}
+      reservePowerColumn ();   // CE3TSK 2026-10-26 (3.-211)
       on_spotLineEdit_textChanged(ui->spotLineEdit->text());
       ui->bandComboBox->setCurrentText (m_config.bands ()->find (m_freqNominal));
   }
@@ -5940,12 +5943,22 @@ void MainWindow::swrLabel (unsigned swr)
       ui->SWRlabel->setStyleSheet ("");
       return;
     }
-  ui->SWRlabel->setText (QString {"swr%1"}.arg (swr / 100., 0, 'f', swr < 1000 ? 2 : 1));
+  ui->SWRlabel->setText (pwr_column::swrText (swr));
   auto const shade = swr_guard::shade (swr);
   if (swr_guard::Shade::Plain == shade) ui->SWRlabel->setStyleSheet ("");
   else ui->SWRlabel->setStyleSheet (QString {"QLabel{color: %1; background-color: %2}"}
                                     .arg (Radio::convert_dark ("#000000", m_useDarkStyle),
                                           Radio::convert_dark (swr_guard::Shade::Red == shade ? "#ff0000" : "#ffff00", m_useDarkStyle)));
+}
+
+/* CE3TSK 2026-10-26 (TODO.md 3.-211, reservedlabel.h): with Output power the Pwr column keeps the size its widest
+   readings need - the power label "Pwr" over up to 999 W, the SWR label up to 99.99 - receiving as transmitting; without
+   it, the labels as before. At the start and after Settings (a language change restarts the program) */
+void MainWindow::reservePowerColumn ()
+{
+  bool const on {m_config.do_pwr ()};
+  ui->PWRlabel->setReserve (on ? pwr_column::wattsWidest (tr ("Pwr<br>%1 W")) : QStringList {});
+  ui->SWRlabel->setReserve (on ? pwr_column::swrWidest () : QStringList {});
 }
 
 /* CE3TSK 2026-10-23 (TODO.md 3.-196, swrguard.h): an SWR above 2.5 while the program transmits - Halt Tx as if pressed:

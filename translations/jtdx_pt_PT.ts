@@ -6565,7 +6565,7 @@ Esse é o erro do próprio descodificador. Corrija o que impede o arranque - uma
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

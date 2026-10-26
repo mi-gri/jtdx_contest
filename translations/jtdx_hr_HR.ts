@@ -6579,7 +6579,7 @@ To je greška samog dekodera. Otklonite ono što ga sprječava da se pokrene - n
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

@@ -1953,7 +1953,7 @@
              <number>3</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="PWRlabel">
+             <widget class="ReservedLabel" name="PWRlabel">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -2021,7 +2021,7 @@
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="SWRlabel">
+             <widget class="ReservedLabel" name="SWRlabel">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -2035,7 +2035,7 @@
                </size>
               </property>
               <property name="alignment">
-               <set>Qt::AlignLeading</set>
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -7881,6 +7881,11 @@ list. The list can be maintained in Settings (F2).</string>
    <extends>QFrame</extends>
    <header>signalmeter.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ReservedLabel</class>
+   <extends>QLabel</extends>
+   <header>reservedlabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

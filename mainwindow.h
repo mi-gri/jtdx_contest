@@ -1258,6 +1258,7 @@ private:
   void removeOldSavedFiles ();   // CE3TSK 2026-10-23: Save > Remove saved files after 30 days (savepurge.h)
   void atuTune ();   // CE3TSK 2026-10-23: a right click on Tune - the radio's own antenna tuner (atutune.h)
   void swrLabel (unsigned swr);   // CE3TSK 2026-10-23: Halt Tx when SWR > 2.5 (swrguard.h) - the label and its colour
+  void reservePowerColumn ();   // CE3TSK 2026-10-26: the Pwr column keeps its size with Output power (3.-211)
   void swrHalt (unsigned swr);    //   - the halt and its warning
   bool m_swrTripped {false};      //   halted for this transmission: its reading stays on the label until the next one
   bool m_swrBoxOpen {false};      //   one warning at a time

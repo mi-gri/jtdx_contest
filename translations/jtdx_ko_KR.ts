@@ -6575,7 +6575,7 @@ That is the decoder's own error. Put right whatever stops it starting - a missin
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

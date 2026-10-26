@@ -6577,7 +6577,7 @@ Det är avkodarens eget fel. Åtgärda det som hindrar den från att starta - et
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

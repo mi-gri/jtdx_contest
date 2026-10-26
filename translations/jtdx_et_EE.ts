@@ -6588,7 +6588,7 @@ See on dekoodri enda viga. Kõrvalda see, mis takistab käivitumist - puuduv tee
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

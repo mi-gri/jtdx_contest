@@ -6579,7 +6579,7 @@ Det er dekoderens egen fejl. Ret det, der forhindrer den i at starte - et mangle
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

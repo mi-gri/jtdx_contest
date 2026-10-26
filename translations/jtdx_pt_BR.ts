@@ -6565,7 +6565,7 @@ Esse é o erro do próprio decodificador. Corrija o que impede a inicialização
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

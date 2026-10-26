@@ -6579,7 +6579,7 @@ C'est l'erreur du décodeur lui-même. Corrigez ce qui l'empêche de démarrer -
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

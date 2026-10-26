@@ -6584,7 +6584,7 @@ Aquest és l'error del descodificador mateix. Corregiu allò que n'impedeix l'in
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>

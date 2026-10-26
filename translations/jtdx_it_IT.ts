@@ -6576,7 +6576,7 @@ Questo è l'errore del decoder stesso. Sistemare ciò che ne impedisce l'avvio -
     <message>
         <location filename="../mainwindow.ui"/>
         <source>FT2</source>
-        <translation type="unfinished"></translation>
+        <translation>FT2</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui"/>
