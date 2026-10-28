@@ -129,14 +129,14 @@ namespace cq_spots
   // that would take it past the edges of the view (0 .. view_w).
   inline std::vector<Slot> stack (std::vector<Box> const& boxes, int view_w, int rows, int gap)
   {
-    std::vector<Slot> slots (boxes.size (), Slot {-1, 0});
+    std::vector<Slot> placed (boxes.size (), Slot {-1, 0});
     std::vector<std::vector<std::pair<int, int>>> used (rows > 0 ? rows : 0);   // [left, right) of each placed label
     for (std::size_t i = 0; i < boxes.size (); ++i)
       {
         int left {boxes[i].centre - boxes[i].width / 2};
         left = std::max (0, std::min (left, view_w - boxes[i].width));
         int const right {left + boxes[i].width};
-        slots[i].left = left;
+        placed[i].left = left;
         for (std::size_t r = 0; r < used.size (); ++r)
           {
             bool free_here {true};
@@ -147,12 +147,12 @@ namespace cq_spots
             if (free_here)
               {
                 used[r].push_back (std::make_pair (left, right));
-                slots[i].row = static_cast<int> (r);
+                placed[i].row = static_cast<int> (r);
                 break;
               }
           }
       }
-    return slots;
+    return placed;
   }
 }
 

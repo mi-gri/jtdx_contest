@@ -529,7 +529,7 @@ void CPlotter::drawCqCalls(QPainter& painter)
     boxes.push_back(b);
   }
   if(shown.empty()) return;
-  auto const slots = cq_spots::stack(boxes, m_w, rows, 2);
+  auto const placed = cq_spots::stack(boxes, m_w, rows, 2);
 
   painter.save();
   painter.setFont(font);
@@ -538,12 +538,12 @@ void CPlotter::drawCqCalls(QPainter& painter)
     painter.drawLine(shown[i].x1, base, shown[i].x2, base);
     painter.drawLine(shown[i].x1, base-3, shown[i].x1, base);
     painter.drawLine(shown[i].x2, base-3, shown[i].x2, base);
-    if(slots[i].row > 0) painter.drawLine(boxes[i].centre, base-3, boxes[i].centre, base-4-slots[i].row*rowH);
+    if(placed[i].row > 0) painter.drawLine(boxes[i].centre, base-3, boxes[i].centre, base-4-placed[i].row*rowH);
   }
   for(std::size_t i=0; i<shown.size(); i++) {                    //the labels, over the lines
-    if(slots[i].row < 0) continue;
-    int const bottom {base - 4 - slots[i].row*rowH};
-    QRect const r {slots[i].left, bottom-(rowH-2), boxes[i].width, rowH-2};
+    if(placed[i].row < 0) continue;
+    int const bottom {base - 4 - placed[i].row*rowH};
+    QRect const r {placed[i].left, bottom-(rowH-2), boxes[i].width, rowH-2};
     painter.fillRect(r, QColor(0,0,0,shown[i].alpha*170/255));
     painter.setPen(QColor(255,255,255,shown[i].alpha));
     painter.drawText(r, Qt::AlignCenter, shown[i].text);
