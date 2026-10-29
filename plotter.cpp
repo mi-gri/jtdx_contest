@@ -495,19 +495,20 @@ float CPlotter::signalBandwidth() const
 /* The CQ calls (cqspots.h), painted over the waterfall's bottom edge - the lines of the waterfall that are
    about to scroll off - and not into the waterfall, which moves a line down at every update. Each call stands
    over its signal: a bracket as wide as the signal on the bottom line, the call in a label above it. Where
-   signals lie close together the labels go in rows above one another, joined to their brackets by a thin line. */
+   signals lie close together the labels go in rows above one another, joined to their brackets by a thin line.
+   A call for which no row is left keeps its bracket, and the top right corner counts them: "+3". */
 void CPlotter::drawCqCalls(QPainter& painter)
 {
   qint64 const now {m_cqClock.elapsed()};
   auto const items = m_cqBoard.active(now);
   if(items.empty()) return;
   QFont font("Arial");
-  font.setPointSize(9);
+  font.setPointSize(8);                     // small: the narrower the labels, the more of them fit
   QFontMetrics const metrics(font);
   int const rowH {metrics.height() + 2};
   int const visible {m_h1 - 30};            // the waterfall as it is seen: under the scale, above the spectrum
   if(visible < rowH + 8) return;
-  int const rows {std::max(1, std::min(cq_spots::max_rows, visible / 3 / rowH))};   // at most a third of it
+  int const rows {std::max(1, std::min(cq_spots::max_rows, visible / 2 / rowH))};   // at most half of it
   int const base {m_h1 - 3};                // the line the brackets stand on
   qint64 const duration {static_cast<qint64>(m_cqBoard.duration_s()) * 1000};
   float const bw {signalBandwidth()};
@@ -525,7 +526,7 @@ void CPlotter::drawCqCalls(QPainter& painter)
     shown.push_back(s);
     cq_spots::Box b;
     b.centre = (s.x1 + s.x2) / 2;
-    b.width = metrics.boundingRect(s.text).width() + 6;
+    b.width = metrics.boundingRect(s.text).width() + 4;
     boxes.push_back(b);
   }
   if(shown.empty()) return;
@@ -540,13 +541,21 @@ void CPlotter::drawCqCalls(QPainter& painter)
     painter.drawLine(shown[i].x2, base-3, shown[i].x2, base);
     if(placed[i].row > 0) painter.drawLine(boxes[i].centre, base-3, boxes[i].centre, base-4-placed[i].row*rowH);
   }
+  int hidden {0};
   for(std::size_t i=0; i<shown.size(); i++) {                    //the labels, over the lines
-    if(placed[i].row < 0) continue;
+    if(placed[i].row < 0) {hidden++; continue;}
     int const bottom {base - 4 - placed[i].row*rowH};
     QRect const r {placed[i].left, bottom-(rowH-2), boxes[i].width, rowH-2};
     painter.fillRect(r, QColor(0,0,0,shown[i].alpha*170/255));
     painter.setPen(QColor(255,255,255,shown[i].alpha));
     painter.drawText(r, Qt::AlignCenter, shown[i].text);
+  }
+  if(hidden > 0) {                                               //calls with no room: a count, top right of the waterfall
+    QString const more {QString("+%1").arg(hidden)};
+    QRect const r {m_w - metrics.boundingRect(more).width() - 10, 32, metrics.boundingRect(more).width() + 6, rowH-2};
+    painter.fillRect(r, QColor(0,0,0,170));
+    painter.setPen(QColor(255,220,0));
+    painter.drawText(r, Qt::AlignCenter, more);
   }
   painter.restore();
 }
